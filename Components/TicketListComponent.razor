@@ -1,0 +1,218 @@
+﻿
+@inherits TicketList
+@using HUD.Data.Models.RepairShopr;
+
+@inject IJSRuntime JSRuntime
+@using Humanizer;
+@using HUD.Data.Models
+@*@using Hud.Components*@
+@using Microsoft.AspNetCore.Identity
+@using HUD.Data.Models.UserModels
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+@if (_apiConn.Layout)
+{
+    <div class="card-deck">
+
+        @foreach (var result in _results.Take(_numCards))
+        {
+
+            @if (result.status.Equals("Rush"))
+            {
+                <div class="card text-white bg-danger task-card border-white border  @(GetColor(result))">
+                    <div class="card-header text-dark">
+                        <span id="icon-element" class="material-icons task-icon">
+                            @(GetIconForTicket(result))
+                        </span>
+                        <h5 id="sro-element">@result.number</h5>
+                        @if (result.status.Equals("Customer Reply"))
+                        {
+                            <i class="fa fa-lg fa-exclamation-circle blink contact-notification"></i>
+                        }
+                        <br />
+                        <a class="customer-name">@result.customer_business_then_name</a>
+                    </div>
+                    <div class="card-body text-dark card-body-info">
+                        <a class="card-title text-dark">Time Here: @((result.created_at).Humanize())</a>
+                        <p class="ticket-status">@result.status</p>
+                        <p class="card-text text-dark bold-info">@result.subject</p>
+                    </div>
+                </div>
+            }
+            else if ((_todaysDate - result.created_at).TotalDays < NEWEST_TICKETS)
+            {
+                <div class="card text-white bg-success task-card @(GetColor(result))">
+                    <div class="card-header text-dark">
+                        <span id="icon-element" class="material-icons task-icon">
+                            @(GetIconForTicket(result))
+                        </span>
+                        <h5 id="sro-element">@result.number</h5>
+                        @if (result.status.Equals("Customer Reply"))
+                        {
+                            <i class="fa fa-lg fa-exclamation-circle blink contact-notification"></i>
+                        }
+                        <br />
+                        <a class="customer-name">@result.customer_business_then_name</a>
+                    </div>
+                    <div class="card-body text-dark card-body-info">
+                        <a class="card-title text-dark">Time Here: @((result.created_at).Humanize())</a>
+                        <p class="ticket-status">@result.status</p>
+                        <p class="card-text text-dark bold-info">@result.subject</p>
+                    </div>
+                </div>
+            }
+            else if ((_todaysDate - result.created_at).TotalDays < MEDIUM_TICKETS)
+            {
+                <div class="card text-white bg-warning task-card  @(GetColor(result))">
+                    <div class="card-header text-dark">
+                        <span id="icon-element" class="material-icons task-icon">
+                            @(GetIconForTicket(result))
+                        </span>
+                        <h5 id="sro-element">@result.number</h5>
+                        @if (result.status.Equals("Customer Reply"))
+                        {
+                            <i class="fa fa-lg fa-exclamation-circle blink contact-notification"></i>
+                        }
+                        <br />
+                        <a class="customer-name">@result.customer_business_then_name</a>
+                    </div>
+                    <div class="card-body text-dark card-body-info">
+                        <a class="card-title text-dark">Time Here: @((result.created_at).Humanize())</a>
+                        <p class="ticket-status">@result.status</p>
+                        <p class="card-text text-dark bold-info">@result.subject</p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card text-white bg-danger task-card  @(GetColor(result))">
+                    <div class="card-header text-dark">
+                        <span id="icon-element" class="material-icons task-icon">
+                            @(GetIconForTicket(result))
+                        </span>
+                        <h5 id="sro-element">@result.number</h5>
+                        @if (result.status.Equals("Customer Reply"))
+                        {
+                            <i class="fa fa-lg fa-exclamation-circle blink contact-notification"></i>
+                        }
+                        <br />
+                        <a class="customer-name">@result.customer_business_then_name</a>
+                    </div>
+                    <div class="card-body text-dark card-body-info">
+                        <a class="card-title text-dark">Time Here: @((result.created_at).Humanize())</a>
+                        <p class="ticket-status">@result.status</p>
+                        <p class="card-text text-dark bold-info">@result.subject</p>
+                    </div>
+                </div>
+            }
+
+        }
+
+    </div>
+}
+else
+{
+    <div class="card-deck">
+
+        <div class="row task-list-card-row">
+
+            <ContactList _apiConn="@_apiConn" _results="@_results" />
+
+            @if (_ticketMap["Customer Reply"] is not null || _ticketMap["Customer Reply"].Count() != 0)
+            {
+                var contLst = _ticketMap["Customer Reply"];
+                @for (int i = 0; i < _apiConn._ticketsPerRow; i++)
+                {
+                    @if (contLst is not null && i <= contLst.Count() - 1)
+                    {
+                        var result = contLst.ElementAt(i);
+
+
+                        <div class="card text-white bg-danger task-card border-white border  @(GetColor(result))">
+                            <div class="card-header text-dark">
+                                <span id="icon-element" class="material-icons task-icon">
+                                    @(GetIconForTicket(result))
+                                </span>
+                                <h5 id="sro-element">@result.number</h5>
+                                @if (result.status.Equals("Customer Reply"))
+                                {
+                                    <i class="fa fa-lg fa-exclamation-circle blink contact-notification"></i>
+                                }
+                                <br />
+                                <a class="customer-name">@result.customer_business_then_name</a>
+                            </div>
+                            <div class="card-body text-dark card-body-info">
+                                <a class="card-title text-dark">Time Here: @((result.created_at).Humanize())</a>
+                                <p class="ticket-status">@result.status</p>
+                                <p class="card-text text-dark bold-info">@result.subject</p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+
+        <div class="row task-list-card-row">
+            @foreach (string item in _statusOrder)
+            {
+                @if (!item.Equals("Customer Reply") && _includeTickets.Contains(item))
+                {
+                    @*var category in _ticketMap*@
+                    var listCat = _ticketMap[item];
+
+                    @for (int i = 0; i < _apiConn._ticketsPerRow; i++)
+                    {
+                        @if (listCat is not null && i <= listCat.Count() - 1)
+                        {
+                            var result = listCat.ElementAt(i);
+
+
+                            <div class="card text-white bg-danger task-card border-white border  @(GetColor(result))">
+                                <div class="card-header text-dark">
+                                    <span id="icon-element" class="material-icons task-icon">
+                                        @(GetIconForTicket(result))
+                                    </span>
+                                    <h5 id="sro-element">@result.number</h5>
+                                    @if (result.status.Equals("Customer Reply"))
+                                    {
+                                        <i class="fa fa-lg fa-exclamation-circle blink contact-notification"></i>
+                                    }
+                                    <br />
+                                    <a class="customer-name">@result.customer_business_then_name</a>
+                                </div>
+                                <div class="card-body text-dark card-body-info">
+                                    <a class="card-title text-dark">Time Here: @((result.created_at).Humanize())</a>
+                                    <p class="ticket-status">@result.status</p>
+                                    <p class="card-text text-dark bold-info">@result.subject</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+
+            }
+
+        </div>
+    </div>
+}
+
+
+
+
+@code {
+
+    @* Display Parameters *@
+    protected const int NEWEST_TICKETS = 5;
+    protected const int MEDIUM_TICKETS = 7;
+
+
+
+
+}
+
+
+
+

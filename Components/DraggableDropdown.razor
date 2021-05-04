@@ -1,0 +1,31 @@
+﻿
+@using HUD.Models
+@using HUD.Data.Models
+@using HUD.Data.Models.Actions
+@inherits DraggableDropDownModel
+
+<div class="dropdown bg-light btn btn-light header-include-dropdown text-dark">
+    <button class="btn btn-light" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Order 
+        <span class="material-icons control-icon">
+            toc
+        </span>
+    </button>
+    <div class="dropdown-menu btn btn-light" ondragover="event.preventDefault();" data-toggle="dropdown" aria-labelledby="dLabel">
+        @foreach (var item in itemList)
+        {
+            if (item != null)
+            {
+                <span class="dropdown-item" draggable="true" style="list-style-type:none; height:30px" @key="item.number" tabindex="1"
+                      @ondrop="@(()=> Drop(item))" @ondrag="@(()=> StartDrag(item))">
+                    <span>@item.status</span>
+                </span>
+            }
+            else
+            {
+                <li>Oh snap, something went wrong :(</li>
+            }
+        }
+    </div>
+</div>
+

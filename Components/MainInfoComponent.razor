@@ -1,0 +1,106 @@
+﻿
+@inherits MainInfoModel
+
+@inject IJSRuntime JSRuntime
+
+
+<div class="card-deck col">
+
+
+    <div class="card rush-card main-info-card" role="alert">
+        <div class="card-body">
+            <strong class="alert-link">@rush.name</strong>:
+            <a class="main-info-card-number">@rush.totalCount</a>
+            <span class="material-icons task-icon main-info-card-icon">
+                flash_on
+            </span>
+        </div>
+    </div>
+    <div class="card customer-reply-card main-info-card" role="alert">
+        <div class="card-body">
+            <strong class="alert-link">@customerReply.name</strong>:
+            <a class="main-info-card-number">@customerReply.totalCount</a>
+            <span class="material-icons main-info-card-icon">
+                call
+            </span>
+        </div>
+    </div>
+    <div class="card bg-warning main-info-card" role="alert">
+        <div class="card-body">
+            <strong class="alert-link">@incoming.name</strong>:
+            <a class="main-info-card-number">
+                @incoming.totalCount
+            </a>
+            <span class="material-icons main-info-card-icon">
+                add
+            </span>
+        </div>
+    </div>
+    <div class="card sent-offsite-card main-info-card" role="alert">
+        <div class="card-body">
+            <strong class="alert-link">@sentOffsite.name</strong>:
+            <a class="main-info-card-number">
+                @sentOffsite.totalCount
+            </a>
+            <span class="material-icons main-info-card-icon">
+                reply
+            </span>
+        </div>
+    </div>
+    <div class="card ready-to-repair-card main-info-card" role="alert">
+        <div class="card-body">
+            <strong class="alert-link">@readyToRepair.name</strong>:
+            <a class="main-info-card-number">
+                @readyToRepair.totalCount
+            </a>
+            <span class="material-icons main-info-card-icon">
+                thumb_up_alt
+            </span>
+        </div>
+    </div>
+    <div class="card in-progress-card main-info-card" role="alert">
+        <div class="card-body">
+            <strong class="alert-link">@inProgress.name</strong>:
+            <a class="main-info-card-number">
+                @inProgress.totalCount
+            </a>
+            <span class="material-icons main-info-card-icon">
+                build
+            </span>
+        </div>
+    </div>
+    <div class="card waiting-for-parts-card main-info-card" role="alert">
+        <div class="card-body">
+            <strong class="alert-link">@waitingForParts.name</strong>:
+            <a class="main-info-card-number">
+                @waitingForParts.totalCount
+            </a>
+            <span class="material-icons main-info-card-icon">
+                pending
+            </span>
+        </div>
+    </div>
+    @*<div class="card bg-info" role="alert">
+            <div class="card-body">
+                <strong class="alert-link">@waitingOnCustomer.name</strong>: @waitingOnCustomer.totalCount
+            </div>
+        </div>*@
+
+
+</div>
+
+@code {
+
+    @* Display Parameters *@
+protected const int NUM_CARDS = 5;
+protected DateTime time = DateTime.Now;
+
+protected void updateData()
+{
+}
+
+}
+
+
+
+

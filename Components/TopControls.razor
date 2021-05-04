@@ -1,0 +1,123 @@
+﻿
+@using HUD.Models;
+@using System.Diagnostics;
+@*@HUD.Data.Models.RepairShopr;*@
+@using HUD.Data.Models.RepairShopr;
+@inject IJSRuntime jsRuntime
+@inject NavigationManager NavManager
+@inherits TopControlsModel;
+@*@inject TopControlsModel tcm*@
+
+
+
+<div class="btn-toolbar header-row">
+
+
+    <div class="dropdown bg-light btn btn-light header-include-dropdown text-dark">
+        <button class="btn btn-light" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Include Tickets
+        </button>
+        <div class="dropdown-menu btn btn-light dropdown-menu-layout" aria-labelledby="dLabel">
+            @foreach (var item in _apiConn._displayMap)
+            {
+                <span class="dropdown-item">
+                    <input value="@item.Value" checked="@item.Value" @onclick="() => _apiConn.CollectTicketsToDisplay(item.Key)" type="checkbox" /> @item.Key
+                </span>
+            }
+        </div>
+    </div>
+
+    @if (!Status)
+    {
+        <div class="dropdown bg-light btn btn-light header-include-dropdown text-dark">
+            <button class="btn btn-light" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Number of Tickets:
+            </button>
+
+            <div class="dropdown-menu btn btn-light dropdown-menu-layout" aria-labelledby="dLabel">
+
+                @foreach (int item in _apiConn._numCardDropdown)
+                {
+                    <span class="dropdown-item">
+                        <input value="@item" @onclick="() => _apiConn.NumCardsChange(item)" type="checkbox" /> @item
+                    </span>
+                }
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="dropdown bg-light btn btn-light header-include-dropdown text-dark">
+            <button class="btn btn-light" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tickets per category:
+            </button>
+            <div class="dropdown-menu btn btn-light dropdown-menu-layout" aria-labelledby="dLabel">
+                @foreach (int item in _apiConn._numCardDropdown)
+                {
+                    <span class="dropdown-item">
+                        <input value="@item" @onclick="() => _apiConn.TicketsPerRowChange(item)" type="checkbox" /> @item
+                    </span>
+                }
+            </div>
+        </div>
+
+        <DraggableDropdown _apiConn="@_apiConn" _context="@_context" _userGuid="@_userGuid" _ticketMap="@_apiConn._ticketMap" />
+
+    }
+
+
+
+
+    <div class="btn btn-light header-control">
+        <input class="btn btn-dark header-text" type="checkbox" checked="@Normal" @onclick="SwapLayout" /> Normal Layout
+
+        <input class="btn btn-dark header-text" type="checkbox" checked="@Status" @onclick="SwapLayout" /> Status Layout
+    </div>
+
+
+    @if (_apiConn.Winston)
+    {
+        <input class="btn btn-light header-text header-control" value="Go To: Greensboro" @onclick="() => GoToPage(false)" />
+    }
+    else
+    {
+        <input class="btn btn-light header-text header-control" value="Go To: Winston" @onclick="() => GoToPage(true)" />
+    }
+
+    <div class="header-control top-right">
+        <div class="alert alert-light top-right">
+            Refresh Rate: @_refreshRate ms
+        </div>
+    </div>
+
+    <a class="btn btn-warning header-control" href="Identity/Account/Logout">Log out</a>
+
+    @*<form class="header-control" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
+        <a class="nav-link btn btn-light text-dark">Logout</a>
+    </form>*@
+
+</div>
+
+@code{
+
+    @*public static bool Greensboro { get; set; }
+    public static bool Winston { get; set; }*@
+
+    protected void GoToPage(bool isGboro)
+    {
+        if (isGboro)
+        {
+            Greensboro = true;
+            Winston = false;
+            NavManager.NavigateTo("/winston");
+        }
+        else
+        {
+            Winston = true;
+            Greensboro = false;
+            NavManager.NavigateTo("/greensboro");
+        }
+    }
+
+}

@@ -1,0 +1,130 @@
+﻿@page "/"
+@inject IJSRuntime jsRuntime
+@namespace HUD.Components
+@inject NavigationManager navigationManager
+
+@using HUD.Data.Models.Actions
+@inject NavigationManager NavManager
+
+@using Microsoft.AspNetCore.Identity
+@using HUD.Data.Models.UserModels
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@*@using Microsoft.AspNetCore.Mvc;
+@using HUD.Data
+@inject ApplicationDbContext context*@
+
+
+<div class="jumbotron intro-jumbo">
+    <div class="intro-jumbo">
+        @if (httpContextAccessor.HttpContext.User.Identity.IsAuthenticated) // SignInManager.IsSignedIn(User)
+        {
+
+            GetOrganization();
+
+
+            <div class="intro-logo">
+                @if (prefix.Equals("itworx")) {
+                    <img class="logo" src="img/itw_logo.png" />
+                }
+                <img class="logo" src="img/rs_logo.png" />
+            </div>
+            <h1 class="text-center intro-label">RepairShopr Ticket Dashboard</h1>
+            <br />
+            <br />
+            <h2 class="text-center select-location-label">Select Your Location</h2>
+            <div class="intro-buttons">
+                <button @onclick="() => GoToPage(true)" type="button" value="Greensboro" class="btn btn-primary text-center location-button">Greensboro</button>
+                <button @onclick="() => GoToPage(false)" type="button" value="Winston" class="btn btn-primary text-center location-button">Winston</button>
+                <a class="btn btn-warning text-center location-button" href="Identity/Account/Logout">Log out</a>
+            </div>
+
+            @*<LoginDisplay />*@
+
+            <div class="spinner-area">
+                @if (HasClicked)
+                {
+                    <div class="spinner"></div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="intro-logo">
+                <img class="logo" src="img/rs_logo.png" />
+            </div>
+            <h1 class="text-center intro-label">RepairShopr Dashboard</h1>
+            <br />
+            <br />
+            <div class="login-label">
+                <h4>Login or Register</h4>
+                <a class="btn btn-primary login-button" href="Identity/Account/Register">Register</a>
+                <a class="btn btn-success login-button" href="Identity/Account/Login">Log in</a>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+
+
+
+@code {
+
+    public bool Greensboro { get; set; }
+    public bool Winston { get; set; }
+    public bool HasClicked { get; set; } = false;
+    public string prefix { get; set; }
+    public string apiKey { get; set; }
+
+
+    protected override Task OnInitializedAsync()
+    {
+        bool isin = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+        HasClicked = false;
+        return base.OnInitializedAsync();
+    }
+
+    protected void GoToPage(bool isGboro)
+    {
+        HasClicked = true;
+        if (isGboro)
+        {
+            Greensboro = true;
+            Winston = false;
+            NavManager.NavigateTo("/greensboro");
+        }
+        else
+        {
+            Winston = true;
+            Greensboro = false;
+            NavManager.NavigateTo("/winston");
+        }
+    }
+
+
+    protected void GetOrganization()
+    {
+        prefix = httpContextAccessor.HttpContext.User.Claims.First(a => a.Type == "UrlPrefix").Value;
+        apiKey = httpContextAccessor.HttpContext.User.Claims.First(a => a.Type == "ApiKey").Value;
+    }
+
+
+    public async void OnLogout()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (SignInManager.IsSignedIn(user))
+        {
+            await SignInManager.SignOutAsync();
+        }
+
+        navigationManager.NavigateTo("~/index");
+    }
+
+}

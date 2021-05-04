@@ -1,0 +1,549 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: 'Koto Sans KR', Helvetica, Arial, sans-serif;
+    height: 100%;
+    /*min-height: 100%;*/
+    /*    margin-left: -30px;*/
+    /*    background-color: #1A2035;*/
+}
+
+/*@media (max-width: 500px) {
+    .dropdown-menu {
+        height: 200px;
+        overflow-y: auto;
+    }
+}*/
+
+a, .btn-link {
+    color: #0366d6;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.page {
+    height: 100%;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.content {
+    padding-top: 1.1rem;
+    background-color: inherit;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+
+
+
+/*=============== CUSTOM CSS =================*/
+
+
+
+#grid-block {
+    background-color: #ECEFF8;
+}
+
+.top-buffer {
+    margin-top: 20px;
+}
+
+.lower-body {
+    background-color: #1A2035;
+}
+
+.header-text {
+    color: #BBBDC4;
+}
+
+.task-card {
+    min-width: 13rem;
+    width: 15%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 0.5rem !important;
+    max-width: 60px;
+    max-height: 256px;
+    margin-left: 1px !important;
+    border: none !important;
+}
+
+.dark-nav {
+    background-color: #2B2E40 !important;
+    border-bottom-color: #2B2E40 !important;
+    /*    color: transparent !important;*/
+}
+
+.full-page {
+    background-color: #2B2E40 !important;
+}
+
+rz-tick-text rz-tick-line rz-tick rz-grid-line rz-axis-title rz-category-axis {
+    color: white !important;
+    background-color: white !important;
+}
+
+
+
+
+
+/* ====== Custom Cards ===== */
+
+.info-card {
+    font-size: 20px;
+}
+
+.customer-name {
+    color: #000 !important;
+    font-weight: bold;
+}
+
+.alert-link {
+    color: #000 !important;
+}
+
+.info-card-height {
+    height: 90%;
+}
+
+.bold-info {
+    font-weight: bold;
+}
+
+.ticket-status {
+    text-decoration: underline;
+    margin: 1px;
+}
+
+.task-list-card {
+    margin-top: 1rem;
+}
+
+.task-list-card-row {
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.task-icon {
+    margin-top: 3px;
+    margin-right: 3px;
+}
+
+#icon-element {
+    display: inline-block;
+    margin-right: 10px;
+    
+}
+
+#sro-element {
+    display: inline-block;
+    font-size: 33px;
+    color: #000 !important;
+    font-family: 'Heebo', sans-serif;
+} 
+
+.row-graph {
+    height: 10%;
+}
+
+.card-body {
+    padding: 0.3rem;
+}
+
+.main-info-card {
+    height: 3rem;
+    font-size: 18px;
+    width: max-content;
+    height: max-content;
+}
+
+.card-body-info {
+    padding: 0.3rem;
+}
+
+.main-info-card-number {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.main-info-card-icon {
+    float: right;
+}
+
+
+
+
+
+/* ===== Customer Contact Card ===== */
+
+.contact-card {
+    width: 50% !important;
+    max-width: 50em;
+    margin-left: 0 !important;
+    margin-top: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+    min-width: 41em;
+}
+
+.contact-table {
+    max-height: inherit;
+    width: 100%;
+}
+
+.contact-row {
+    padding-bottom: 2px;
+}
+
+
+
+.new-card {
+    background-color: #FFC107 !important;
+    /*keep normal time-based color for new cards*/
+}
+.waiting-on-customer-card {
+    background-color: #b89277 !important;
+}
+.ready-to-repair-card {
+    background-color: #3268e6 !important;
+}
+.waiting-for-parts-card {
+    background-color: #919bd9 !important;
+}
+.customer-reply-card {
+    background-color: #4ae1ff !important;
+}
+.resolved-card {
+    background-color: #7ddb98 !important;
+}
+.sent-offsite-card {
+    background-color: #db7dba !important;
+}
+.ready-for-pickup-card {
+    background-color: #949494 !important;
+}
+.in-progress-card {
+    background-color: #94db65 !important;
+}
+.rush-card {
+    background-color: #fc0f0f !important;
+}
+/* ====== Blinking Icon ===== */
+.blink {
+    animation: blink 2s steps(5, start) infinite;
+    -webkit-animation: blink 1s steps(5, start) infinite;
+}
+
+@keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+@-webkit-keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+.contact-notification {
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+    float: right;
+}
+
+
+
+/* ===== Card Table ===== */
+
+.table-task {
+    margin: 0 0 40px 0;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    display: table;
+}
+
+.trow {
+    display: table-row;
+    background: #f6f6f6;
+}
+
+.trow:nth-of-type(odd) {
+    background: #e9e9e9;
+}
+
+.trow.theader {
+    font-weight: 900;
+    color: #ffffff;
+    background: #ea6153;
+}
+
+
+.trow.green {
+    background: #27ae60;
+}
+
+.trow.tblue {
+    background: #2980b9;
+}
+
+.trow.theader .tcell {
+    display: none;
+}
+
+.trow .tcell {
+    margin-bottom: 10px;
+}
+
+.trow .tcell:before {
+    margin-bottom: 3px;
+    content: attr(data-title);
+    min-width: 98px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+    display: block;
+}
+
+.tcell {
+    padding: 6px 12px;
+    display: table-cell;
+}
+
+
+
+
+/* ===== Header / Login Items ===== */
+
+.intro-logo {
+    /*    padding-top: 20rem;*/
+    order: 1;
+    text-align: center;
+}
+
+.intro-label {
+    font-family: "Archivo Black";
+    order: 2;
+    margin-top: 3rem;
+    
+}
+
+.select-location-label {
+    order: 3;
+    margin-top: 3rem;
+}
+
+.login-label {
+    order: 3;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.intro-buttons {
+    /*    left: 20%;*/
+/*    position: absolute;*/
+    text-align: center;
+    order: 4;
+}
+
+.logo {
+    padding-right: 1em;
+}
+
+.intro-jumbo {
+    width: 50%;
+    background-color: lightgray;
+    position: relative;
+    left: 25%;
+    /*    height: 586px;*/
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.location-button {
+    padding: 5px;
+    align-items: center;
+    position: center;
+    margin-top: 1rem;
+    cursor: pointer;
+    width: 150px;
+    height: 37px;
+}
+
+.header-row {
+    align-content: center;
+    max-height: 2.5rem;
+    position: relative;
+}
+
+.header-text {
+    padding-top: 5px;
+    cursor: pointer;
+    color: black;
+}
+
+.logout-button {
+    position: absolute;
+    right: 48px;
+}
+
+.header-control {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.header-include-dropdown {
+    width: inherit;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0 !important;
+}
+
+.dropdown-menu-layout {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+.control-icon {
+    vertical-align: middle;
+}
+
+.top-right {
+    display: inline-block;
+    max-height: 2.5rem !important;
+    max-width: inherit;
+}
+
+.refresh-rate {
+
+}
+
+.login-button {
+    width: 6rem;
+}
+
+.logout-button-top {
+    margin-left: 1rem;
+    max-height: 2.5rem !important;
+    align-content: center;
+}
+
+
+
+
+
+
+/* ===== Loading Spinner ===== */
+.spinner-area {
+    order: 6;
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+    margin-top: 22px;
+}
+
+.spinner {
+/*    order: 6;*/
+    border: 16px solid silver;
+    border-top: 16px solid #337AB7;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 700ms linear infinite;
+    top: 80%;
+    left: 42%;
+    position: absolute;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.logout-home-div {
+    order: 5;
+}
+
+.logout-home-button {
+    padding: 5px;
+    width: 150px;
+    height: 37px;
+}
+
+
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
