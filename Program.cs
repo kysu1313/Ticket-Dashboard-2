@@ -21,26 +21,33 @@ namespace HUD
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(builder =>
+                //.ConfigureAppConfiguration(builder =>
+                //{
+                //    var root = builder.Build();
+                //    var vaultName = root["KeyVaultName"];
+                //    builder.AddAzureKeyVault($"https://{vaultName}.vault.azure.net/",
+                //        root["AzureADApplicationId"], GetCertificate(root["AzureADCertThumbprint"]),
+                //        new PrefixKeyVaultSecretManager("HUD"));
+                //})
+                .ConfigureAppConfiguration((context, config) =>
                 {
-                    var root = builder.Build();
-                    var vaultName = root["KeyVault:KeyVaultName"];
-                    builder.AddAzureKeyVault($"https://{vaultName}.vault.azure.net/",
-                        root["KeyVault:AzureADApplicationId"], GetCertificate(root["KeyVault:AzureADCertThumbprint"]),
-                        new PrefixKeyVaultSecretManager("HUD"));
+                    if (context.HostingEnvironment.IsDevelopment())
+                    {
+                        config.AddUserSecrets<Program>();
+                    }
                 })
-            //Host.CreateDefaultBuilder(args)
-            //    .ConfigureAppConfiguration((context, config) =>
-            //    {
-            //if (context.HostingEnvironment.IsDevelopment())
-            //{
-            //    config.AddUserSecrets<Program>();
-            //}
-            //var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-            //config.AddAzureKeyVault(
-            //keyVaultEndpoint,
-            //new DefaultAzureCredential());
-            //})
+                //Host.CreateDefaultBuilder(args)
+                //    .ConfigureAppConfiguration((context, config) =>
+                //    {
+                //if (context.HostingEnvironment.IsDevelopment())
+                //{
+                //    config.AddUserSecrets<Program>();
+                //}
+                //var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+                //config.AddAzureKeyVault(
+                //keyVaultEndpoint,
+                //new DefaultAzureCredential());
+                //})
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

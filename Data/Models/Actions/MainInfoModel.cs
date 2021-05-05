@@ -45,7 +45,7 @@ namespace HUD.Data.Models
         protected MainItem sentOffsite = new MainItem
         {
             totalCount = 0,
-            name = "Sent Offsite"
+            name = "Offsite"
         };
 
         protected MainItem incoming = new MainItem
@@ -57,7 +57,7 @@ namespace HUD.Data.Models
         protected MainItem customerReply = new MainItem
         {
             totalCount = 0,
-            name = "Customer Reply"
+            name = "Replies"
         };
 
         protected MainItem inProgress = new MainItem
@@ -69,13 +69,13 @@ namespace HUD.Data.Models
         protected MainItem waitingOnCustomer = new MainItem
         {
             totalCount = 0,
-            name = "Waiting on Customer"
+            name = "W-O-C"
         };
 
         protected MainItem waitingForParts = new MainItem
         {
             totalCount = 0,
-            name = "Waiting on Parts"
+            name = "Parts"
         };
 
         protected MainItem resolved = new MainItem
@@ -87,7 +87,7 @@ namespace HUD.Data.Models
         protected MainItem readyToRepair = new MainItem
         {
             totalCount = 0,
-            name = "Ready to Repair"
+            name = "R-2-R"
         };
 
         /// <summary>

@@ -78,46 +78,46 @@
 
     @if (_apiConn.Winston)
     {
-        <input class="btn btn-light header-text header-control" value="Go To: Greensboro" @onclick="() => GoToPage(false)" />
+        <button class="btn btn-light header-text header-control" @onclick="() => GoToPage(false)">Go To: Greensboro</button>
     }
     else
     {
-        <input class="btn btn-light header-text header-control" value="Go To: Winston" @onclick="() => GoToPage(true)" />
+        <button class="btn btn-light header-text header-control" @onclick="() => GoToPage(true)">Go To: Winston</button>
     }
 
-    <div class="header-control top-right">
-        <div class="alert alert-light top-right">
-            Refresh Rate: @_refreshRate ms
+    <div class="top-right float-right">
+        <div class="header-control">
+            <div class="badge badge-light refresh-rate">
+                <p class="small-info top-info">
+                    Refresh Rate: @_refreshRate ms
+                </p>
+                <br />
+                <p class="small-info">
+                    Location: @(Greensboro ? "Greensboro" : "Winston")
+                </p>
+            </div>
         </div>
+
+        <a class="btn btn-warning header-control" href="Identity/Account/Logout">Log out</a>
     </div>
-
-    <a class="btn btn-warning header-control" href="Identity/Account/Logout">Log out</a>
-
-    @*<form class="header-control" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
-        <a class="nav-link btn btn-light text-dark">Logout</a>
-    </form>*@
-
 </div>
 
 @code{
 
-    @*public static bool Greensboro { get; set; }
-    public static bool Winston { get; set; }*@
-
-    protected void GoToPage(bool isGboro)
+protected void GoToPage(bool isGboro)
+{
+    if (isGboro)
     {
-        if (isGboro)
-        {
-            Greensboro = true;
-            Winston = false;
-            NavManager.NavigateTo("/winston");
-        }
-        else
-        {
-            Winston = true;
-            Greensboro = false;
-            NavManager.NavigateTo("/greensboro");
-        }
+        Greensboro = true;
+        Winston = false;
+        NavManager.NavigateTo("/winston");
     }
+    else
+    {
+        Winston = true;
+        Greensboro = false;
+        NavManager.NavigateTo("/greensboro");
+    }
+}
 
 }
