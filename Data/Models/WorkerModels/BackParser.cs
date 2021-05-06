@@ -1,9 +1,11 @@
 ﻿using HUD.Models;
+using HUD.Data.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace HUD.Data.Models.WorkerModels
 {
@@ -90,17 +92,17 @@ namespace HUD.Data.Models.WorkerModels
             }
             else
             {
-                map.Add("Rush", new List<RepairTicket>());
-                map.Add("Corporate Customer", new List<RepairTicket>());
-                map.Add("Customer Reply", new List<RepairTicket>());
-                map.Add("New", new List<RepairTicket>());
-                map.Add("Ready to Repair", new List<RepairTicket>());
-                map.Add("In Progress", new List<RepairTicket>());
-                map.Add("Waiting for Parts", new List<RepairTicket>());
-                map.Add("Sent Offsite", new List<RepairTicket>());
-                map.Add("Waiting on Customer", new List<RepairTicket>());
-                map.Add("Resolved", new List<RepairTicket>());
-                map.Add("Ready for Pickup", new List<RepairTicket>());
+                map.Add(Constants.RUSH, new List<RepairTicket>());
+                map.Add(Constants.CORPORATE_CUSTOMER, new List<RepairTicket>());
+                map.Add(Constants.CUSTOMER_REPLY, new List<RepairTicket>());
+                map.Add(Constants.NEW, new List<RepairTicket>());
+                map.Add(Constants.READY_TO_REPAIR, new List<RepairTicket>());
+                map.Add(Constants.IN_PROGRESS, new List<RepairTicket>());
+                map.Add(Constants.WAITING_FOR_PARTS, new List<RepairTicket>());
+                map.Add(Constants.SENT_OFFSITE, new List<RepairTicket>());
+                map.Add(Constants.WAITING_ON_CUSTOMER, new List<RepairTicket>());
+                map.Add(Constants.RESOLVED, new List<RepairTicket>());
+                map.Add(Constants.READY_FOR_PICKUP, new List<RepairTicket>());
             }
 
 
@@ -131,17 +133,17 @@ namespace HUD.Data.Models.WorkerModels
             }
             else
             {
-                map.Add("Rush", true);
-                map.Add("Corporate Customer", true);
-                map.Add("Customer Reply", true);
-                map.Add("New", true);
-                map.Add("Ready to Repair", true);
-                map.Add("In Progress", true);
-                map.Add("Waiting for Parts", true);
-                map.Add("Sent Offsite", true);
-                map.Add("Waiting on Customer", true);
-                map.Add("Resolved", true);
-                map.Add("Ready for Pickup", true);
+                map.Add(Constants.RUSH, true);
+                map.Add(Constants.CORPORATE_CUSTOMER, true);
+                map.Add(Constants.CUSTOMER_REPLY, true);
+                map.Add(Constants.NEW, true);
+                map.Add(Constants.READY_TO_REPAIR, true);
+                map.Add(Constants.IN_PROGRESS, true);
+                map.Add(Constants.WAITING_FOR_PARTS, true);
+                map.Add(Constants.SENT_OFFSITE, true);
+                map.Add(Constants.WAITING_ON_CUSTOMER, true);
+                map.Add(Constants.RESOLVED, true);
+                map.Add(Constants.READY_FOR_PICKUP, true);
             }
 
             return map;
