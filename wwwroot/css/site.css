@@ -262,6 +262,11 @@ rz-tick-text rz-tick-line rz-tick rz-grid-line rz-axis-title rz-category-axis {
 .rush-card {
     background-color: #fc0f0f !important;
 }
+.corporate-card {
+    background-color: #ff7417 !important;
+}
+
+
 /* ====== Blinking Icon ===== */
 .blink {
     animation: blink 2s steps(5, start) infinite;
@@ -366,12 +371,12 @@ rz-tick-text rz-tick-line rz-tick rz-grid-line rz-axis-title rz-category-axis {
 }
 
 .select-location-label {
-    order: 3;
+    order: 4;
     margin-top: 3rem;
 }
 
 .login-label {
-    order: 3;
+    order: 4;
     margin-top: 3rem;
     text-align: center;
 }
@@ -380,23 +385,82 @@ rz-tick-text rz-tick-line rz-tick rz-grid-line rz-axis-title rz-category-axis {
     /*    left: 20%;*/
 /*    position: absolute;*/
     text-align: center;
-    order: 4;
+    order: 5;
 }
 
 .logo {
     padding-right: 1em;
+    margin-bottom: 1em;
 }
+
+
+
+
+/* ===== Loading Spinner ===== */
+.spinner-area {
+    order: 3;
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+    margin-top: 22px;
+    display: flex;
+}
+
+.spinner {
+    /*    order: 6;*/
+    border: 16px solid silver;
+    border-top: 16px solid #337AB7;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 700ms linear infinite;
+/*    top: 80%;
+    left: 42%;
+    position: absolute;*/
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.logout-home-div {
+    order: 5;
+}
+
+.logout-home-button {
+    padding: 5px;
+    width: 150px;
+    height: 37px;
+}
+
+
+
+
+
+
+
 
 .intro-jumbo {
     width: 50%;
     max-width: 650px;
-    background-color: lightgray;
+    background-color: white;
     position: relative;
-    left: 25%;
+    left: 33%;
     /*    height: 586px;*/
     height: max-content;
     display: flex;
     flex-direction: column;
+}
+
+.inner-intro-jumbo {
+    width: 70%;
+    align-self: center;
 }
 
 .location-button {
@@ -495,47 +559,7 @@ rz-tick-text rz-tick-line rz-tick rz-grid-line rz-axis-title rz-category-axis {
 
 
 
-/* ===== Loading Spinner ===== */
-.spinner-area {
-    order: 6;
-    width: max-content;
-    height: max-content;
-    margin: 0 auto;
-    margin-top: 22px;
-}
 
-.spinner {
-/*    order: 6;*/
-    border: 16px solid silver;
-    border-top: 16px solid #337AB7;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    animation: spin 700ms linear infinite;
-    top: 80%;
-    left: 42%;
-    position: absolute;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg)
-    }
-
-    100% {
-        transform: rotate(360deg)
-    }
-}
-
-.logout-home-div {
-    order: 5;
-}
-
-.logout-home-button {
-    padding: 5px;
-    width: 150px;
-    height: 37px;
-}
 
 
 

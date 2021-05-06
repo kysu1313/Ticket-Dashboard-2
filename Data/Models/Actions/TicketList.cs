@@ -13,6 +13,7 @@ using System.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using HUD.Data.Models.RepairShopr;
 using HUD.Data.Models.Actions;
+using Microsoft.AspNetCore.Http;
 //using HUD.Data.Models.RepairShopr;
 
 namespace HUD.Data.Models
@@ -22,6 +23,8 @@ namespace HUD.Data.Models
 
         [Parameter]
         public ApiConnection _apiConn { get; set; }
+        [Parameter]
+        public IHttpContextAccessor _userContext { get; set; }
         [Parameter]
         public bool Layout { get; set; }
         [Parameter]
@@ -57,6 +60,10 @@ namespace HUD.Data.Models
         {
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken token = source.Token;
+            if (_userContext.HttpContext is null || !_userContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
             _apiConn.CallApi();
             _results = _apiConn._results.ToList();
             SetResults();

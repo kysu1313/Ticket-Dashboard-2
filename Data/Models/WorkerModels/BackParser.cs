@@ -91,6 +91,7 @@ namespace HUD.Data.Models.WorkerModels
             else
             {
                 map.Add("Rush", new List<RepairTicket>());
+                map.Add("Corporate Customer", new List<RepairTicket>());
                 map.Add("Customer Reply", new List<RepairTicket>());
                 map.Add("New", new List<RepairTicket>());
                 map.Add("Ready to Repair", new List<RepairTicket>());
@@ -131,6 +132,7 @@ namespace HUD.Data.Models.WorkerModels
             else
             {
                 map.Add("Rush", true);
+                map.Add("Corporate Customer", true);
                 map.Add("Customer Reply", true);
                 map.Add("New", true);
                 map.Add("Ready to Repair", true);

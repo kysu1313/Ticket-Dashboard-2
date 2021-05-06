@@ -14,7 +14,7 @@
 @using System.Threading.Tasks;
 @*@GetClaims();*@
 
-<TopControls _apiConn="@_apiConnW" _context="@context" _userGuid="@_userGuid" Greensboro="@_greensboro" Winston="@_winston" _refreshRate="@REFRESH_RATE" />
+<TopControls _apiConn="@_apiConnW" _context="@context" _userContext="@httpContextAccessor" _userGuid="@_userGuid" Greensboro="@_greensboro" Winston="@_winston" _refreshRate="@REFRESH_RATE" />
 
 
 
@@ -27,14 +27,14 @@
 
     <div class="row task-list-card-row">
 
-        <MainInfoComponent _apiConn="@_apiConnW" _refreshRate="@REFRESH_RATE" />
+        <MainInfoComponent _apiConn="@_apiConnW" _userContext="@httpContextAccessor" _refreshRate="@REFRESH_RATE" />
 
     </div>
 
 
     <div class="row task-list-card-row">
 
-        <TicketListComponent _apiConn="@_apiConnW" _refreshRate="@REFRESH_RATE" />
+        <TicketListComponent _apiConn="@_apiConnW" _userContext="@httpContextAccessor" _refreshRate="@REFRESH_RATE" />
 
     </div>
 

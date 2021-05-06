@@ -16,5 +16,8 @@ namespace HUD.Data.Models.UserModels
         public string ticketsToShow { get; set; }
         public int numTicketsPerStatus { get; set; }
         public int numTickets { get; set; }
+        public string LargeLogo { get; set; }
+        public string SmallLogo { get; set; }
+        public string OrgName { get; set; }
     }
 }

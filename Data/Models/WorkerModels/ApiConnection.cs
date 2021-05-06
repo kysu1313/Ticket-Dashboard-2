@@ -44,26 +44,14 @@ namespace HUD.Data.Models.RepairShopr
         public List<RepairTicket> _greensboroTickets { get; set; }
         public List<RepairTicket> _winstonTickets { get; set; }
         public string[] _statusOrder;
+        private const int greensboroId = 2666;
+        private const int winstonId = 2667;
         public string[] _defaultStatusOrder { get; } = new string[]
             {
-                "Rush","Customer Reply","New","Ready to Repair","In Progress",
+                "Rush","Corporate Customer","Customer Reply","New","Ready to Repair","In Progress",
                 "Waiting for Parts","Sent Offsite","Waiting on Customer"
                 ,"Resolved","Ready for Pickup"
             };
-
-        private const int greensboroId = 2666;
-        private const int winstonId = 2667;
-
-        public List<RepairTicket> _newTickets = new List<RepairTicket>();
-        public List<RepairTicket> _readyToRepairTickets = new List<RepairTicket>();
-        public List<RepairTicket> _waitingOnCustomerTickets = new List<RepairTicket>();
-        public List<RepairTicket> _waitingForPartsTickets = new List<RepairTicket>();
-        public List<RepairTicket> _customerReplyTickets = new List<RepairTicket>();
-        public List<RepairTicket> _resolvedTickets = new List<RepairTicket>();
-        public List<RepairTicket> _sentOffsiteTickets = new List<RepairTicket>();
-        public List<RepairTicket> _readyForPickupTickets = new List<RepairTicket>();
-        public List<RepairTicket> _inProgressTickets = new List<RepairTicket>();
-        public List<RepairTicket> _rushTickets = new List<RepairTicket>();
 
         private RepairShoprApi rsa;
 
@@ -82,11 +70,9 @@ namespace HUD.Data.Models.RepairShopr
             Greensboro = inGreensboro;
             Winston = inWinston;
             CreateDropdowns();
-            GetUserSettings(userGuid);
-
-            InstantiateVars();
-
             rsa = new RepairShoprApi(configuration, _urlPrefix, _apiKey);
+            GetUserSettings(userGuid);
+            InstantiateVars();
 
             CallApi();
         }
@@ -95,8 +81,10 @@ namespace HUD.Data.Models.RepairShopr
         {
 
             _settingsModel = _context.userSettings.FirstOrDefault(a => a.UserGuid == _userId);
+            
             if (_settingsModel is null)
             {
+                Dictionary<string, string> settings = rsa.ApiGetSettings();
                 UserSettings us = new UserSettings()
                 {
                     UserGuid = _userId,
@@ -104,7 +92,10 @@ namespace HUD.Data.Models.RepairShopr
                     ticketOrder = String.Join(", ", _defaultStatusOrder),
                     ticketsToShow = String.Join(", ", _defaultStatusOrder),
                     numTicketsPerStatus = 10,
-                    numTickets = 100
+                    numTickets = 100,
+                    SmallLogo = settings["account_logo_thumb"],
+                    LargeLogo = settings["account_logo_large"],
+                    OrgName = settings["account_name"]
                 };
                 _context.userSettings.Add(us);
                 _context.SaveChanges();
@@ -115,7 +106,6 @@ namespace HUD.Data.Models.RepairShopr
                 Debug.WriteLine("User already exists");
             }
         }
-
 
         /// <summary>
         /// Api call collects tickets, then sorts them and interperets
@@ -178,7 +168,7 @@ namespace HUD.Data.Models.RepairShopr
             {
                 _statusOrder = new string[]
                     {
-                        "Rush","Customer Reply","New","Ready to Repair","In Progress",
+                        "Rush","Corporate Customer","Customer Reply","New","Ready to Repair","In Progress",
                         "Waiting for Parts","Sent Offsite","Waiting on Customer"
                         ,"Resolved","Ready for Pickup"
                     };
@@ -259,6 +249,8 @@ namespace HUD.Data.Models.RepairShopr
                     return "in-progress-card";
                 case "Rush":
                     return "rush-card";
+                case "Corporate Customer":
+                    return "corporate-card";
                 default:
                     break;
             }
@@ -294,6 +286,8 @@ namespace HUD.Data.Models.RepairShopr
                     return "build";
                 case "Rush":
                     return "flash_on";
+                case "Corporate Customer":
+                    return "corporate_fare";
                 default:
                     break;
             }

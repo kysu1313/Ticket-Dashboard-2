@@ -1,12 +1,11 @@
-﻿
-
-@using HUD.Models
+﻿@using HUD.Models
 @inherits ContactListModel
 @inject IJSRuntime JSRuntime
+@using Microsoft.AspNetCore.Http
 @using Humanizer;
 
 @if (_contacts is not null && _contacts.Count() > 0)
-    {
+{
 
     <div class="card task-list-card contact-card" Style="background-color: white">
 
@@ -24,14 +23,14 @@
             <tbody>
 
                 @foreach (Contact contact in _contacts)
-                    {
-                <tr class="trow">
-                    <td>@contact.number</td>
-                    <td>@contact.customerName</td>
-                    <td>@contact.body.Split("\n")[0]</td>
-                    <td>@contact.created_at.Humanize()</td>
-                </tr>
-                    }
+                {
+                    <tr class="trow">
+                        <td>@contact.number</td>
+                        <td>@contact.customerName</td>
+                        <td>@contact.body.Split("\n")[0]</td>
+                        <td>@contact.created_at.Humanize()</td>
+                    </tr>
+                }
             </tbody>
         </table>
 
@@ -41,17 +40,17 @@
 
             <div class="trow theader tblue">
                 <div class="tcell">-->
-                    @*Name*@
-                <!--</div>
-                <div class="tcell">-->
-                    @*Age*@
-                <!--</div>
-                <div class="tcell">-->
-                    @*Occupation*@
-                <!--</div>
-                <div class="tcell">-->
-                    @*Location*@
-                <!--</div>
+        @*Name*@
+        <!--</div>
+        <div class="tcell">-->
+        @*Age*@
+        <!--</div>
+        <div class="tcell">-->
+        @*Occupation*@
+        <!--</div>
+        <div class="tcell">-->
+        @*Location*@
+        <!--</div>
             </div>
 
         </div>-->
@@ -62,3 +61,8 @@ else
     <div class="alert-primary">No new messages</div>
 }
 
+
+@code {
+
+
+}

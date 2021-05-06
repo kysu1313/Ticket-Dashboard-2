@@ -116,6 +116,9 @@ namespace HUD.Data.Models.WorkerModels
                     case "Rush":
                         _ticketMap["Rush"].Add(rt);
                         break;
+                    case "Corporate Customer":
+                        _ticketMap["Corporate Customer"].Add(rt);
+                        break;
                     default:
                         break;
                 }
