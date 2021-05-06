@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using HUD.Data.Models.Common;
 
 namespace HUD.Data.Models.WorkerModels
 {
@@ -86,38 +87,38 @@ namespace HUD.Data.Models.WorkerModels
             {
                 switch (rt.status)
                 {
-                    case "New":
-                        _ticketMap["New"].Add(rt);
+                    case Constants.NEW:
+                        _ticketMap[Constants.NEW].Add(rt);
                         break;
-                    case "Waiting on Customer":
-                        _ticketMap["Waiting on Customer"].Add(rt);
+                    case Constants.WAITING_ON_CUSTOMER:
+                        _ticketMap[Constants.WAITING_ON_CUSTOMER].Add(rt);
                         break;
-                    case "Ready to Repair":
-                        _ticketMap["Ready to Repair"].Add(rt);
+                    case Constants.READY_TO_REPAIR:
+                        _ticketMap[Constants.READY_TO_REPAIR].Add(rt);
                         break;
-                    case "Waiting for Parts":
-                        _ticketMap["Waiting for Parts"].Add(rt);
+                    case Constants.WAITING_FOR_PARTS:
+                        _ticketMap[Constants.WAITING_FOR_PARTS].Add(rt);
                         break;
-                    case "Customer Reply":
-                        _ticketMap["Customer Reply"].Add(rt);
+                    case Constants.CUSTOMER_REPLY:
+                        _ticketMap[Constants.CUSTOMER_REPLY].Add(rt);
                         break;
-                    case "Resolved":
-                        _ticketMap["Resolved"].Add(rt);
+                    case Constants.RESOLVED:
+                        _ticketMap[Constants.RESOLVED].Add(rt);
                         break;
-                    case "Sent Offsite":
-                        _ticketMap["Sent Offsite"].Add(rt);
+                    case Constants.SENT_OFFSITE:
+                        _ticketMap[Constants.SENT_OFFSITE].Add(rt);
                         break;
-                    case "Ready for Pickup":
-                        _ticketMap["Ready for Pickup"].Add(rt);
+                    case Constants.READY_FOR_PICKUP:
+                        _ticketMap[Constants.READY_FOR_PICKUP].Add(rt);
                         break;
-                    case "In Progress":
-                        _ticketMap["In Progress"].Add(rt);
+                    case Constants.IN_PROGRESS:
+                        _ticketMap[Constants.IN_PROGRESS].Add(rt);
                         break;
-                    case "Rush":
-                        _ticketMap["Rush"].Add(rt);
+                    case Constants.RUSH:
+                        _ticketMap[Constants.RUSH].Add(rt);
                         break;
-                    case "Corporate Customer":
-                        _ticketMap["Corporate Customer"].Add(rt);
+                    case Constants.CORPORATE_CUSTOMER:
+                        _ticketMap[Constants.CORPORATE_CUSTOMER].Add(rt);
                         break;
                     default:
                         break;

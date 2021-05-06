@@ -45,8 +45,6 @@ namespace HUD.Models.RepairShopr
         /// <returns></returns>
         public List<RepairTicket> GetTicketList()
         {
-            //_apiKey = Configuration["apiKey"].ToString();
-
             List<RepairTicket> fullList = new List<RepairTicket>();
             string ticket_url = _urlHeader + _urlPrefix + _urlRoute;
 

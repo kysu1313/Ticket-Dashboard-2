@@ -11,9 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
+using HUD.Data.Models.Common;
 
 
 namespace HUD.Data.Models.RepairShopr
@@ -46,12 +44,7 @@ namespace HUD.Data.Models.RepairShopr
         public string[] _statusOrder;
         private const int greensboroId = 2666;
         private const int winstonId = 2667;
-        public string[] _defaultStatusOrder { get; } = new string[]
-            {
-                "Rush","Corporate Customer","Customer Reply","New","Ready to Repair","In Progress",
-                "Waiting for Parts","Sent Offsite","Waiting on Customer"
-                ,"Resolved","Ready for Pickup"
-            };
+        public string[] _defaultStatusOrder { get; set; }
 
         private RepairShoprApi rsa;
 
@@ -62,6 +55,12 @@ namespace HUD.Data.Models.RepairShopr
         /// <param name="inWinston"></param>
         public ApiConnection(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, string userGuid, IConfiguration configuration, string prefix, string apiKey, bool inGreensboro, bool inWinston)
         {
+            _defaultStatusOrder = new string[]
+            {
+                Constants.RUSH,Constants.CORPORATE_CUSTOMER,Constants.CUSTOMER_REPLY,Constants.NEW,Constants.READY_TO_REPAIR,Constants.IN_PROGRESS,
+                Constants.WAITING_FOR_PARTS,Constants.SENT_OFFSITE,Constants.WAITING_ON_CUSTOMER
+                ,Constants.RESOLVED,Constants.READY_FOR_PICKUP
+            };
             _context = context;
             _contextAccessor = httpContextAccessor;
             _userId = userGuid;
@@ -88,14 +87,14 @@ namespace HUD.Data.Models.RepairShopr
                 UserSettings us = new UserSettings()
                 {
                     UserGuid = _userId,
-                    location = Greensboro ? "Greensboro" : "Winston",
+                    location = Greensboro ? Constants.GREENSBORO : Constants.WINSTON,
                     ticketOrder = String.Join(", ", _defaultStatusOrder),
                     ticketsToShow = String.Join(", ", _defaultStatusOrder),
                     numTicketsPerStatus = 10,
                     numTickets = 100,
-                    SmallLogo = settings["account_logo_thumb"],
-                    LargeLogo = settings["account_logo_large"],
-                    OrgName = settings["account_name"]
+                    SmallLogo = settings[Constants.LOGO_THUMB],
+                    LargeLogo = settings[Constants.LOGO_LARGE],
+                    OrgName = settings[Constants.ORGANIZATION_NAME]
                 };
                 _context.userSettings.Add(us);
                 _context.SaveChanges();
@@ -166,12 +165,7 @@ namespace HUD.Data.Models.RepairShopr
             }
             else
             {
-                _statusOrder = new string[]
-                    {
-                        "Rush","Corporate Customer","Customer Reply","New","Ready to Repair","In Progress",
-                        "Waiting for Parts","Sent Offsite","Waiting on Customer"
-                        ,"Resolved","Ready for Pickup"
-                    };
+                _statusOrder = _defaultStatusOrder;
             }
 
             SetStatuses();
@@ -229,27 +223,27 @@ namespace HUD.Data.Models.RepairShopr
         {
             switch (rt.status)
             {
-                case "New":
+                case Constants.NEW:
                     return "new-card";
-                case "Waiting on Customer":
+                case Constants.WAITING_ON_CUSTOMER:
                     return "waiting-on-customer-card";
-                case "Ready to Repair":
+                case Constants.READY_TO_REPAIR:
                     return "ready-to-repair-card";
-                case "Waiting for Parts":
+                case Constants.WAITING_FOR_PARTS:
                     return "waiting-for-parts-card";
-                case "Customer Reply":
+                case Constants.CUSTOMER_REPLY:
                     return "customer-reply-card";
-                case "Resolved":
+                case Constants.RESOLVED:
                     return "resolved-card";
-                case "Sent Offsite":
+                case Constants.SENT_OFFSITE:
                     return "sent-offsite-card";
-                case "Ready for Pickup":
+                case Constants.READY_FOR_PICKUP:
                     return "ready-for-pickup-card";
-                case "In Progress":
+                case Constants.IN_PROGRESS:
                     return "in-progress-card";
-                case "Rush":
+                case Constants.RUSH:
                     return "rush-card";
-                case "Corporate Customer":
+                case Constants.CORPORATE_CUSTOMER:
                     return "corporate-card";
                 default:
                     break;
@@ -266,27 +260,27 @@ namespace HUD.Data.Models.RepairShopr
         {
             switch (rt.status)
             {
-                case "New":
+                case Constants.NEW:
                     return "add";
-                case "Waiting on Customer":
+                case Constants.WAITING_ON_CUSTOMER:
                     return "hourglass_bottom";
-                case "Ready to Repair":
+                case Constants.READY_TO_REPAIR:
                     return "thumb_up_alt";
-                case "Waiting for Parts":
+                case Constants.WAITING_FOR_PARTS:
                     return "pending";
-                case "Customer Reply":
+                case Constants.CUSTOMER_REPLY:
                     return "reply";
-                case "Resolved":
+                case Constants.RESOLVED:
                     return "grade";
-                case "Sent Offsite":
+                case Constants.SENT_OFFSITE:
                     return "call";
-                case "Ready for Pickup":
+                case Constants.READY_FOR_PICKUP:
                     return "done";
-                case "In Progress":
+                case Constants.IN_PROGRESS:
                     return "build";
-                case "Rush":
+                case Constants.RUSH:
                     return "flash_on";
-                case "Corporate Customer":
+                case Constants.CORPORATE_CUSTOMER:
                     return "corporate_fare";
                 default:
                     break;
