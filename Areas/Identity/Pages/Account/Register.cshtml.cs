@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using HUD.Data;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace HUD.Areas.Identity.Pages.Account
 {

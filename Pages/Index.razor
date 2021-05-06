@@ -1,26 +1,28 @@
 ﻿@page "/"
-@inject IJSRuntime jsRuntime
 @namespace HUD.Components
-@inject NavigationManager navigationManager
 
 @using HUD.Data.Models.Actions
-@inject NavigationManager NavManager
-
 @using Microsoft.AspNetCore.Identity
 @using HUD.Data.Models.UserModels
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims;
+
+@inject IJSRuntime jsRuntime
+@inject NavigationManager navigationManager
+@inject NavigationManager NavManager
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor httpContextAccessor
-@using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HUD.Data.ApplicationDbContext context
 @*@using Microsoft.AspNetCore.Mvc;
-@using HUD.Data
-@inject ApplicationDbContext context*@
+    @using HUD.Data
+    @inject ApplicationDbContext context*@
 
 
 <div class="jumbotron intro-jumbo">
-    <div class="intro-jumbo">
+    <div class="inner-intro-jumbo">
         @if (httpContextAccessor.HttpContext.User.Identity.IsAuthenticated) // SignInManager.IsSignedIn(User)
         {
 
@@ -28,8 +30,9 @@
 
 
             <div class="intro-logo">
-                @if (prefix.Equals("itworx")) {
-                    <img class="logo" src="img/itw_logo.png" />
+                @if (LogoUrl is not null)
+                {
+                    <img class="logo" src="@LogoUrl" />
                 }
                 <img class="logo" src="img/rs_logo.png" />
             </div>
@@ -81,12 +84,21 @@
     public bool HasClicked { get; set; } = false;
     public string prefix { get; set; }
     public string apiKey { get; set; }
+    public string LogoUrl { get; set; }
+    public UserSettings _usett { get; set; }
 
 
     protected override Task OnInitializedAsync()
     {
+
         bool isin = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
         HasClicked = false;
+        string _userId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        _usett = context.userSettings.FirstOrDefault(a => a.UserGuid == _userId);
+        if (_usett is not null)
+        {
+            LogoUrl = _usett.LargeLogo;
+        }
         return base.OnInitializedAsync();
     }
 

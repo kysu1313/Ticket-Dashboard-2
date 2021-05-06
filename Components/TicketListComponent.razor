@@ -119,7 +119,7 @@ else
 
         <div class="row task-list-card-row">
 
-            <ContactList _apiConn="@_apiConn" _results="@_results" />
+            <ContactList _apiConn="@_apiConn" _userContext="@_userContext" _results="@_results" />
 
             @if (_ticketMap["Customer Reply"] is not null || _ticketMap["Customer Reply"].Count() != 0)
             {

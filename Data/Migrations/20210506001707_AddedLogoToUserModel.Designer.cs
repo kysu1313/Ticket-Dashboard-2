@@ -4,14 +4,16 @@ using HUD.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HUD.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210506001707_AddedLogoToUserModel")]
+    partial class AddedLogoToUserModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,6 +46,9 @@ namespace HUD.Data.Migrations
                     b.Property<bool>("IsLoggedIn")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LargeLogo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -74,6 +79,9 @@ namespace HUD.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SmallLogo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -131,15 +139,6 @@ namespace HUD.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("LargeLogo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrgName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SmallLogo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserGuid")
                         .HasColumnType("nvarchar(max)");

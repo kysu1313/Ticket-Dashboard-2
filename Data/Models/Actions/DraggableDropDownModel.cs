@@ -7,6 +7,7 @@ using HUD.Data.Models.Actions;
 using HUD.Data.Models.RepairShopr;
 using HUD.Models;
 using HUD.Data.Models.WorkerModels;
+using Microsoft.AspNetCore.Http;
 //using HUD.Data.Models.RepairShopr;
 
 namespace HUD.Data.Models.Actions
@@ -17,6 +18,8 @@ namespace HUD.Data.Models.Actions
         public ApiConnection _apiConn { get; set; }
         [Parameter]
         public ApplicationDbContext _context { get; set; }
+        [Parameter]
+        public IHttpContextAccessor _userContext { get; set; }
         [Parameter]
         public Dictionary<string, List<RepairTicket>> _ticketMap { get; set; }
         [Parameter]

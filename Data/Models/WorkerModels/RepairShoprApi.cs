@@ -21,6 +21,7 @@ namespace HUD.Models.RepairShopr
 
         private string _urlHeader = "https://";
         private string _urlRoute = ".repairshopr.com/api/v1/tickets?page=";
+        private string _settingsRoute = ".repairshopr.com/api/v1/settings";
         private int _pageNum;
         public string _apiKey { get; set; }
         public string _urlPrefix { get; set; }
@@ -103,6 +104,41 @@ namespace HUD.Models.RepairShopr
             }
 
             return ri;
+        }
+
+        public Dictionary<string, string> ApiGetSettings()
+        {
+            Dictionary<string, string> settings = new Dictionary<string, string>();
+            string settings_url = _urlHeader + _urlPrefix + _settingsRoute;
+
+            try
+            {
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.Headers.Add("Content-Type", "application/json; charset=utf-8"); //; charset=utf-8
+                    webClient.Headers.Add("Authorization", _apiKey);
+                    JObject job;
+                    //_pageNum = 1;
+                    //int pages;
+                    //do
+                    //{
+                    webClient.BaseAddress = settings_url;
+                    var json = webClient.DownloadString("");
+                    job = JObject.Parse(json);
+                    Debug.WriteLine(job);
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(job.SelectToken("profile").ToString());
+                    foreach (var v in data)
+                    {
+                        settings.Add(v.Key, v.Value);
+                    }
+
+                    return settings;
+                }
+            }
+            catch (WebException ex)
+            {
+                throw;
+            }
         }
 
 

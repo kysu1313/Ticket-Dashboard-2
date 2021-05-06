@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace HUD.Data.Models
 {
@@ -15,6 +16,8 @@ namespace HUD.Data.Models
         public ApiConnection _apiConn { get; set; }
         [Parameter]
         public ApplicationDbContext _context{ get; set; }
+        [Parameter]
+        public IHttpContextAccessor _userContext { get; set; }
         [Parameter]
         public string _userGuid { get; set; }
         [Parameter]

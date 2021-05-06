@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace HUD.Data.Models
 {
@@ -19,6 +20,8 @@ namespace HUD.Data.Models
     {
         [Parameter]
         public ApiConnection _apiConn { get; set; }
+        [Parameter]
+        public IHttpContextAccessor _userContext { get; set; }
         [Parameter]
         public int _refreshRate { get; set; }
 
@@ -90,6 +93,12 @@ namespace HUD.Data.Models
             name = "R-2-R"
         };
 
+        protected MainItem corporateCustomer = new MainItem
+        {
+            totalCount = 0,
+            name = "Corporate"
+        };
+
         /// <summary>
         /// Used for testing.
         /// </summary>
@@ -104,6 +113,10 @@ namespace HUD.Data.Models
         {
             CancellationTokenSource source = new CancellationTokenSource();
             CancellationToken token = source.Token;
+            if (_userContext.HttpContext is null || !_userContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
             DataChange();
             StateHasChanged();
             await Task.Delay(_refreshRate, token);
@@ -122,6 +135,7 @@ namespace HUD.Data.Models
             //_numReadyForPickup = _apiConn._ticketMap["Ready for Pickup"].Count();
             inProgress.totalCount = _apiConn._ticketMap["In Progress"].Count();
             rush.totalCount = _apiConn._ticketMap["Rush"].Count();
+            corporateCustomer.totalCount = _apiConn._ticketMap["Corporate Customer"].Count();
             
         }
 
